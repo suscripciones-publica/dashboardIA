@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA en PÚBLICA — Encuesta Abril 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --surface-2: #f0efe9;
+    --border: rgba(0,0,0,0.09);
+    --border-mid: rgba(0,0,0,0.15);
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --text-hint: #9e9e9e;
+    --blue: #2b7ed4;
+    --blue-light: #e8f2fc;
+    --purple: #6b60cc;
+    --purple-light: #f0eefb;
+    --teal: #1a9370;
+    --teal-light: #e2f4ee;
+    --amber: #d4820f;
+    --amber-light: #fef3e2;
+    --coral: #c94830;
+    --coral-light: #fdecea;
+    --gray: #777672;
+    --gray-light: #eeede8;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .page { max-width: 920px; margin: 0 auto; }
+
+  /* Header */
+  .header { margin-bottom: 2.5rem; }
+  .header-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-hint); margin-bottom: 6px; }
+  .header-title { font-size: 28px; font-weight: 600; color: var(--text-primary); line-height: 1.2; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: var(--text-secondary); }
+
+  /* Section labels */
+  .section-label {
+    font-size: 10.5px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-hint); margin: 2.5rem 0 1rem;
+    padding-bottom: 8px; border-bottom: 0.5px solid var(--border);
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  /* Metric cards */
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .metric {
+    background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+  }
+  .metric-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 5px; line-height: 1.3; }
+  .metric-value { font-size: 30px; font-weight: 600; color: var(--text-primary); line-height: 1; }
+  .metric-sub { font-size: 11px; color: var(--text-hint); margin-top: 4px; }
+
+  /* Cards */
+  .card {
+    background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+  }
+  .card-title { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 1rem; }
+  .card-note { font-size: 11px; color: var(--text-secondary); margin-top: 10px; line-height: 1.5; }
+
+  /* Grid layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-full { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+  /* Bar rows */
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .bar-row:last-of-type { margin-bottom: 0; }
+  .bar-label {
+    font-size: 11px; color: var(--text-secondary);
+    text-align: right; flex-shrink: 0;
+  }
+  .bar-label.w130 { width: 130px; }
+  .bar-label.w105 { width: 105px; }
+  .bar-label.w80  { width: 80px; }
+  .bar-label.w90  { width: 90px; }
+  .bar-track { flex: 1; background: var(--surface-2); border-radius: 3px; height: 15px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-n { font-size: 11px; color: var(--text-secondary); width: 28px; text-align: right; flex-shrink: 0; }
+
+  .c-blue   { background: var(--blue); }
+  .c-purple { background: var(--purple); }
+  .c-teal   { background: var(--teal); }
+  .c-amber  { background: var(--amber); }
+  .c-coral  { background: var(--coral); }
+  .c-gray   { background: var(--gray); }
+
+  /* Preference bars */
+  .pref-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .pref-area { font-size: 11px; color: var(--text-secondary); width: 120px; flex-shrink: 0; }
+  .pref-track { flex: 1; background: var(--surface-2); border-radius: 3px; height: 13px; overflow: hidden; }
+  .pref-fill { height: 100%; border-radius: 3px; }
+  .pref-val { font-size: 11px; font-weight: 500; color: var(--text-primary); width: 28px; text-align: right; flex-shrink: 0; }
+
+  /* VS section */
+  .vs-section-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--text-hint); margin: 12px 0 7px;
+  }
+  .vs-header { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+  .vs-users { font-size: 11px; color: var(--text-secondary); margin-bottom: 1rem; }
+
+  /* Token callout */
+  .callout {
+    background: var(--coral-light); border: 0.5px solid rgba(201,72,48,0.18);
+    border-radius: var(--radius-sm); padding: 8px 12px;
+    font-size: 11px; color: #9b2e1d; margin-top: 10px; line-height: 1.5;
+  }
+  .callout.teal {
+    background: var(--teal-light); border-color: rgba(26,147,112,0.18); color: #0d6650;
+  }
+
+  /* Tools grid */
+  .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tool-item {
+    background: var(--surface-2); border-radius: var(--radius-sm);
+    padding: 8px 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .tool-name { font-size: 11px; color: var(--text-secondary); width: 72px; flex-shrink: 0; }
+  .tool-bar { flex: 1; background: var(--surface); border-radius: 2px; height: 5px; overflow: hidden; }
+  .tool-bar-fill { height: 100%; border-radius: 2px; }
+  .tool-n { font-size: 11px; font-weight: 500; color: var(--text-primary); width: 20px; text-align: right; flex-shrink: 0; }
+
+  /* Divider */
+  hr { border: none; border-top: 0.5px solid var(--border); margin: 2rem 0; }
+
+  /* Footer */
+  .footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-size: 12px; font-weight: 600; color: var(--text-primary); letter-spacing: 0.04em; }
+  .footer-date { font-size: 11px; color: var(--text-hint); }
+
+  @media (max-width: 640px) {
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-eyebrow">PÚBLICA LATAM · Documento interno · Abril 2026</div>
+    <div class="header-title">Inteligencia Artificial en PÚBLICA</div>
+    <div class="header-sub">Resultados de la encuesta interna — 67 respondentes, 8 áreas</div>
+  </div>
+
+  <!-- ADOPCIÓN GENERAL -->
+  <div class="section-label">Adopción general</div>
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-label">Usan ChatGPT</div>
+      <div class="metric-value">94%</div>
+      <div class="metric-sub">63 de 67</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Usan Claude</div>
+      <div class="metric-value">75%</div>
+      <div class="metric-sub">50 de 67</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Usan ambas</div>
+      <div class="metric-value">73%</div>
+      <div class="metric-sub">49 de 67</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Preferencia Claude (1–5)</div>
+      <div class="metric-value">4.0</div>
+      <div class="metric-sub">promedio entre usuarios</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- FRECUENCIA -->
+  <div class="section-label">Frecuencia de uso</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Claude</div>
+      <div class="bar-row"><div class="bar-label w130">Varias veces por día</div><div class="bar-track"><div class="bar-fill c-blue" style="width:38%"></div></div><div class="bar-n">19</div></div>
+      <div class="bar-row"><div class="bar-label w130">Todos los días</div><div class="bar-track"><div class="bar-fill c-blue" style="width:32%"></div></div><div class="bar-n">16</div></div>
+      <div class="bar-row"><div class="bar-label w130">Varias veces x semana</div><div class="bar-track"><div class="bar-fill c-blue" style="width:20%"></div></div><div class="bar-n">10</div></div>
+      <div class="bar-row"><div class="bar-label w130">1–2 veces x semana</div><div class="bar-track"><div class="bar-fill c-blue" style="width:6%"></div></div><div class="bar-n">3</div></div>
+      <div class="bar-row"><div class="bar-label w130">Esporádicamente</div><div class="bar-track"><div class="bar-fill c-blue" style="width:4%"></div></div><div class="bar-n">2</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">ChatGPT</div>
+      <div class="bar-row"><div class="bar-label w130">Varias veces por día</div><div class="bar-track"><div class="bar-fill c-purple" style="width:38%"></div></div><div class="bar-n">20</div></div>
+      <div class="bar-row"><div class="bar-label w130">Todos los días</div><div class="bar-track"><div class="bar-fill c-purple" style="width:30%"></div></div><div class="bar-n">16</div></div>
+      <div class="bar-row"><div class="bar-label w130">Varias veces x semana</div><div class="bar-track"><div class="bar-fill c-purple" style="width:21%"></div></div><div class="bar-n">11</div></div>
+      <div class="bar-row"><div class="bar-label w130">1–2 veces x semana</div><div class="bar-track"><div class="bar-fill c-purple" style="width:15%"></div></div><div class="bar-n">8</div></div>
+      <div class="bar-row"><div class="bar-label w130">Esporádicamente</div><div class="bar-track"><div class="bar-fill c-purple" style="width:15%"></div></div><div class="bar-n">8</div></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PREFERENCIA POR ÁREA -->
+  <div class="section-label">Preferencia Claude vs. ChatGPT por área (escala 1–5, donde 5 = prefiere Claude)</div>
+  <div class="card">
+    <div class="pref-row"><div class="pref-area">Redacción</div><div class="pref-track"><div class="pref-fill c-teal" style="width:91%"></div></div><div class="pref-val">4.57</div></div>
+    <div class="pref-row"><div class="pref-area">Contenidos</div><div class="pref-track"><div class="pref-fill c-teal" style="width:89%"></div></div><div class="pref-val">4.44</div></div>
+    <div class="pref-row"><div class="pref-area">Prod. / Edición</div><div class="pref-track"><div class="pref-fill c-teal" style="width:88%"></div></div><div class="pref-val">4.40</div></div>
+    <div class="pref-row"><div class="pref-area">Administración</div><div class="pref-track"><div class="pref-fill c-teal" style="width:85%"></div></div><div class="pref-val">4.25</div></div>
+    <div class="pref-row"><div class="pref-area">PM/PMO</div><div class="pref-track"><div class="pref-fill c-teal" style="width:82%"></div></div><div class="pref-val">4.09</div></div>
+    <div class="pref-row"><div class="pref-area">Hub de Data</div><div class="pref-track"><div class="pref-fill c-amber" style="width:70%"></div></div><div class="pref-val">3.50</div></div>
+    <div class="pref-row"><div class="pref-area">Dirección</div><div class="pref-track"><div class="pref-fill c-amber" style="width:67%"></div></div><div class="pref-val">3.33</div></div>
+    <div class="pref-row"><div class="pref-area">Diseño</div><div class="pref-track"><div class="pref-fill c-gray" style="width:60%"></div></div><div class="pref-val">3.00</div></div>
+    <div class="card-note">Promedio general: 4.02 sobre 5. El empate en Diseño responde a una división estructural: ChatGPT para imágenes, Claude para artefactos y código.</div>
+  </div>
+
+  <hr>
+
+  <!-- TOKENS Y BRAINS -->
+  <div class="section-label">Infraestructura — tokens y brains</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Límite de tokens — Claude (usuarios activos)</div>
+      <div class="bar-row"><div class="bar-label w80">Me las arreglo</div><div class="bar-track"><div class="bar-fill c-teal" style="width:46%"></div></div><div class="bar-n">23</div></div>
+      <div class="bar-row"><div class="bar-label w80">Me frena</div><div class="bar-track"><div class="bar-fill c-coral" style="width:28%"></div></div><div class="bar-n">14</div></div>
+      <div class="bar-row"><div class="bar-label w80">Sin problema</div><div class="bar-track"><div class="bar-fill c-gray" style="width:18%"></div></div><div class="bar-n">9</div></div>
+      <div class="bar-row"><div class="bar-label w80">No lo conozco</div><div class="bar-track"><div class="bar-fill c-gray" style="width:8%"></div></div><div class="bar-n">4</div></div>
+      <div class="card-note">74% experimenta algún tipo de limitación. El "sin problema" se concentra en quienes tienen cuenta MAX institucional (Administración y Dirección).</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Brains de ChatGPT — adopción</div>
+      <div class="bar-row"><div class="bar-label w80">Conozco, no uso</div><div class="bar-track"><div class="bar-fill c-coral" style="width:41%"></div></div><div class="bar-n">26</div></div>
+      <div class="bar-row"><div class="bar-label w80">Uso semanal</div><div class="bar-track"><div class="bar-fill c-purple" style="width:27%"></div></div><div class="bar-n">17</div></div>
+      <div class="bar-row"><div class="bar-label w80">Uso diario</div><div class="bar-track"><div class="bar-fill c-blue" style="width:16%"></div></div><div class="bar-n">10</div></div>
+      <div class="bar-row"><div class="bar-label w80">No sabía que existían</div><div class="bar-track"><div class="bar-fill c-gray" style="width:16%"></div></div><div class="bar-n">10</div></div>
+      <div class="card-note">57% los conoce pero no los aprovecha o no sabía que existían. El uso diario se concentra en PM/PMO.</div>
+    </div>
+  </div>
+
+  <!-- TOKENS POR ÁREA -->
+  <div style="margin-top: 14px;">
+    <div class="card">
+      <div class="card-title">Tokens bloqueantes por área (% que reporta "me frena en trabajos complejos")</div>
+      <div class="bar-row"><div class="bar-label w130">Diseño</div><div class="bar-track"><div class="bar-fill c-coral" style="width:67%"></div></div><div class="bar-n">67%</div></div>
+      <div class="bar-row"><div class="bar-label w130">Prod. / Edición</div><div class="bar-track"><div class="bar-fill c-coral" style="width:60%"></div></div><div class="bar-n">60%</div></div>
+      <div class="bar-row"><div class="bar-label w130">Contenidos</div><div class="bar-track"><div class="bar-fill c-amber" style="width:44%"></div></div><div class="bar-n">44%</div></div>
+      <div class="bar-row"><div class="bar-label w130">PM/PMO</div><div class="bar-track"><div class="bar-fill c-amber" style="width:27%"></div></div><div class="bar-n">27%</div></div>
+      <div class="bar-row"><div class="bar-label w130">Administración</div><div class="bar-track"><div class="bar-fill c-teal" style="width:0.5%"></div></div><div class="bar-n">0%</div></div>
+      <div class="bar-row"><div class="bar-label w130">Dirección</div><div class="bar-track"><div class="bar-fill c-teal" style="width:0.5%"></div></div><div class="bar-n">0%</div></div>
+      <div class="bar-row"><div class="bar-label w130">Hub de Data</div><div class="bar-track"><div class="bar-fill c-teal" style="width:0.5%"></div></div><div class="bar-n">0%</div></div>
+      <div class="bar-row"><div class="bar-label w130">Redacción</div><div class="bar-track"><div class="bar-fill c-teal" style="width:0.5%"></div></div><div class="bar-n">0%</div></div>
+      <div class="callout teal">Administración y Dirección tienen cuentas MAX institucionales. Son los únicos grupos que eliminaron la fricción de tokens.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ANTIGÜEDAD Y REEMPLAZO -->
+  <div class="section-label">Perfil de adopción</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Adopción de Claude por antigüedad</div>
+      <div class="bar-row"><div class="bar-label w105">Menos de 1 año</div><div class="bar-track"><div class="bar-fill c-blue" style="width:89%"></div></div><div class="bar-n">89%</div></div>
+      <div class="bar-row"><div class="bar-label w105">1 a 3 años</div><div class="bar-track"><div class="bar-fill c-blue" style="width:76%"></div></div><div class="bar-n">76%</div></div>
+      <div class="bar-row"><div class="bar-label w105">Más de 3 años</div><div class="bar-track"><div class="bar-fill c-blue" style="width:69%"></div></div><div class="bar-n">69%</div></div>
+      <div class="card-note">La adopción no crece con la antigüedad. Los perfiles más nuevos llegan con Claude ya incorporado.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">¿Reemplazarías ChatGPT con Claude?</div>
+      <div class="bar-row"><div class="bar-label w105">Sí</div><div class="bar-track"><div class="bar-fill c-teal" style="width:58%"></div></div><div class="bar-n">29</div></div>
+      <div class="bar-row"><div class="bar-label w105">Tal vez / No sé</div><div class="bar-track"><div class="bar-fill c-amber" style="width:32%"></div></div><div class="bar-n">16</div></div>
+      <div class="bar-row"><div class="bar-label w105">No</div><div class="bar-track"><div class="bar-fill c-gray" style="width:6%"></div></div><div class="bar-n">3</div></div>
+      <div class="card-note">La principal razón para mantener GPT es usarlo como respaldo cuando Claude se queda sin tokens — no como preferencia de herramienta.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- FORTALEZAS Y LIMITACIONES -->
+  <div class="section-label">ChatGPT vs. Claude — fortalezas y limitaciones según el equipo</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="vs-header">ChatGPT</div>
+      <div class="vs-users">63 usuarios activos</div>
+      <div class="vs-section-label">Lo más valorado</div>
+      <div class="bar-row"><div class="bar-label w105">Deep Research</div><div class="bar-track"><div class="bar-fill c-purple" style="width:80%"></div></div><div class="bar-n">21</div></div>
+      <div class="bar-row"><div class="bar-label w105">Imágenes / Images 2.0</div><div class="bar-track"><div class="bar-fill c-purple" style="width:38%"></div></div><div class="bar-n">10</div></div>
+      <div class="bar-row"><div class="bar-label w105">Canvas / Lienzo</div><div class="bar-track"><div class="bar-fill c-purple" style="width:19%"></div></div><div class="bar-n">5</div></div>
+      <div class="bar-row"><div class="bar-label w105">Brains / agente</div><div class="bar-track"><div class="bar-fill c-purple" style="width:15%"></div></div><div class="bar-n">4</div></div>
+      <div class="bar-row"><div class="bar-label w105">Redacción / escritura</div><div class="bar-track"><div class="bar-fill c-purple" style="width:15%"></div></div><div class="bar-n">4</div></div>
+      <div class="vs-section-label">Principal limitación</div>
+      <div class="bar-row"><div class="bar-label w105">Información incorrecta</div><div class="bar-track"><div class="bar-fill c-coral" style="width:38%"></div></div><div class="bar-n">10</div></div>
+      <div class="bar-row"><div class="bar-label w105">Tono robótico / genérico</div><div class="bar-track"><div class="bar-fill c-coral" style="width:35%"></div></div><div class="bar-n">9</div></div>
+      <div class="bar-row"><div class="bar-label w105">Sin artefactos / apps</div><div class="bar-track"><div class="bar-fill c-coral" style="width:19%"></div></div><div class="bar-n">5</div></div>
+      <div class="bar-row"><div class="bar-label w105">Poco razonamiento</div><div class="bar-track"><div class="bar-fill c-coral" style="width:19%"></div></div><div class="bar-n">5</div></div>
+    </div>
+    <div class="card">
+      <div class="vs-header">Claude</div>
+      <div class="vs-users">50 usuarios activos</div>
+      <div class="vs-section-label">Lo más valorado</div>
+      <div class="bar-row"><div class="bar-label w105">Artefactos / código</div><div class="bar-track"><div class="bar-fill c-blue" style="width:80%"></div></div><div class="bar-n">14</div></div>
+      <div class="bar-row"><div class="bar-label w105">Presentaciones</div><div class="bar-track"><div class="bar-fill c-blue" style="width:74%"></div></div><div class="bar-n">13</div></div>
+      <div class="bar-row"><div class="bar-label w105">Análisis / síntesis</div><div class="bar-track"><div class="bar-fill c-blue" style="width:29%"></div></div><div class="bar-n">5</div></div>
+      <div class="bar-row"><div class="bar-label w105">Cowork / Excel</div><div class="bar-track"><div class="bar-fill c-blue" style="width:23%"></div></div><div class="bar-n">4</div></div>
+      <div class="bar-row"><div class="bar-label w105">Redacción / escritura</div><div class="bar-track"><div class="bar-fill c-blue" style="width:17%"></div></div><div class="bar-n">3</div></div>
+      <div class="vs-section-label">Principal limitación</div>
+      <div class="bar-row"><div class="bar-label w105">Tokens / créditos</div><div class="bar-track"><div class="bar-fill c-coral" style="width:100%"></div></div><div class="bar-n">28</div></div>
+      <div class="callout">56% de los usuarios menciona los tokens como única limitación relevante. Todas las demás son marginales en comparación.</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ECOSISTEMA -->
+  <div class="section-label">Ecosistema complementario — otras herramientas mencionadas (sobre 67)</div>
+  <div class="tools-grid">
+    <div class="tool-item"><div class="tool-name">Gemini</div><div class="tool-bar"><div class="tool-bar-fill c-blue" style="width:75%"></div></div><div class="tool-n">50</div></div>
+    <div class="tool-item"><div class="tool-name">Grok</div><div class="tool-bar"><div class="tool-bar-fill c-blue" style="width:34%"></div></div><div class="tool-n">23</div></div>
+    <div class="tool-item"><div class="tool-name">Notebook LM</div><div class="tool-bar"><div class="tool-bar-fill c-blue" style="width:28%"></div></div><div class="tool-n">19</div></div>
+    <div class="tool-item"><div class="tool-name">ElevenLabs</div><div class="tool-bar"><div class="tool-bar-fill c-purple" style="width:24%"></div></div><div class="tool-n">16</div></div>
+    <div class="tool-item"><div class="tool-name">Descript</div><div class="tool-bar"><div class="tool-bar-fill c-purple" style="width:21%"></div></div><div class="tool-n">14</div></div>
+    <div class="tool-item"><div class="tool-name">Canva IA</div><div class="tool-bar"><div class="tool-bar-fill c-purple" style="width:15%"></div></div><div class="tool-n">10</div></div>
+    <div class="tool-item"><div class="tool-name">Higgsfield</div><div class="tool-bar"><div class="tool-bar-fill c-teal" style="width:13%"></div></div><div class="tool-n">9</div></div>
+    <div class="tool-item"><div class="tool-name">Notion AI</div><div class="tool-bar"><div class="tool-bar-fill c-teal" style="width:13%"></div></div><div class="tool-n">9</div></div>
+    <div class="tool-item"><div class="tool-name">Gamma</div><div class="tool-bar"><div class="tool-bar-fill c-gray" style="width:9%"></div></div><div class="tool-n">6</div></div>
+    <div class="tool-item"><div class="tool-name">Perplexity</div><div class="tool-bar"><div class="tool-bar-fill c-gray" style="width:7%"></div></div><div class="tool-n">5</div></div>
+    <div class="tool-item"><div class="tool-name">Runway / Sora</div><div class="tool-bar"><div class="tool-bar-fill c-gray" style="width:7%"></div></div><div class="tool-n">5</div></div>
+    <div class="tool-item"><div class="tool-name">Firefly</div><div class="tool-bar"><div class="tool-bar-fill c-gray" style="width:6%"></div></div><div class="tool-n">4</div></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-brand">PÚBLICA LATAM</div>
+    <div class="footer-date">Encuesta interna · Abril 2026 · Documento interno — no distribuir</div>
+  </div>
+
+</div>
+</body>
+</html>
